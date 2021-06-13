@@ -14,13 +14,13 @@ import br.com.unipe.aula.model.User;
 import br.com.unipe.aula.service.UserService;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping(path = "/users")
 public class UserController {
 
 	@Autowired
 	private UserService service;
 	
-	@GetMapping("/form")
+	@GetMapping(path = "/form")
 	public ModelAndView viewForm(Model model) {
 		model.addAttribute("user", new User());
 		return new ModelAndView("formulario");
@@ -35,7 +35,7 @@ public class UserController {
 
 	@GetMapping(value = "/cadastro")
 	public ModelAndView viewFormAndFindAll(@ModelAttribute User user) {
-		ModelAndView view = new ModelAndView("formulario");
+		ModelAndView view = new ModelAndView("/users/formulario");
 		view.addObject("mensagem", "Sucesso!");
 		view.addObject("moradores", service.findAll());
 		return view;
