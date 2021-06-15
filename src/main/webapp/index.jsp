@@ -8,8 +8,9 @@
 </head>
 <body>
 
-	<h1>É isso aí</h1>
-	<a href="morador/formulario">Morador</a>
+	<h1>É isso aí...</h1>
+	<a href="welcome">Welcome</a>
+	<a href="users/cadastro">Usuários</a>
 
 
 </body>

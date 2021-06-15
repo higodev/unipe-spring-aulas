@@ -17,55 +17,58 @@ import br.com.unipe.aula.service.UserService;
 @RequestMapping(path = "/users")
 public class UserController {
 
-	@Autowired
-	private UserService service;
-	
-	@GetMapping(path = "/form")
-	public ModelAndView viewForm(Model model) {
-		model.addAttribute("user", new User());
-		return new ModelAndView("formulario");
-	}
+    @Autowired
+    private UserService service;
 
-	@PostMapping("/formulario")
-	public ModelAndView viewWithMessage(@ModelAttribute User user) {
-		ModelAndView view = new ModelAndView("formulario");
-		view.addObject("mensagem", user.getName() + " é morador de " + user.getLocal());
-		return view;
-	}
+    private boolean isRedirect;
 
-	@GetMapping(value = "/cadastro")
-	public ModelAndView viewFormAndFindAll(@ModelAttribute User user) {
-		ModelAndView view = new ModelAndView("/users/formulario");
-		view.addObject("mensagem", "Sucesso!");
-		view.addObject("moradores", service.findAll());
-		return view;
-	}
+    @GetMapping(value = "/list")
+    public ModelAndView findAll(@ModelAttribute User user) {
+        ModelAndView view = new ModelAndView("users/list");
+        view.addObject("users", service.findAll());
+        if (this.isRedirect) {
+            view.addObject("message", "Registro salvo com sucesso!");
+            this.isRedirect = false;
+        }
+        return view;
+    }
 
-	@GetMapping(value = "/editar/{id}")
-	public ModelAndView findById(@PathVariable("id") Long id, Model model) {
-		ModelAndView view = new ModelAndView("editar");
-		view.addObject("morador", service.findOne(id));
-		return view;
-	}
+    @GetMapping(path = "/new")
+    public ModelAndView viewForm(Model model) {
+        model.addAttribute("user", new User());
+        return new ModelAndView("users/form");
+    }
 
-	@PostMapping(value = "/cadastro")
-	public ModelAndView create(@ModelAttribute User user) {
-		service.create(user);
-		ModelAndView view = new ModelAndView("formulario");
-		view.addObject("mensagem", "Morador " + user.getName() + " cadastrado com sucesso!");
-		view.addObject("moradores", service.findAll());
-		return view;
-	}
-	
-	@PostMapping(value = "/update/{id}")
-	public String update(@PathVariable("id") Long id, User morador) {
-		service.update(morador);
-		return "redirect:../cadastro";
-	}
+    @PostMapping(value = "/save")
+    public String create(@ModelAttribute User user) {
+        service.create(user);
+        this.isRedirect = true;
+        return "redirect:list";
+    }
 
-	@GetMapping(value = "/excluir/{id}")
-	public String delete(@PathVariable("id") Long id, Model model) {
-		service.deleteById(id);
-		return "redirect:../cadastro";
-	}
+    @PostMapping("/formulario")
+    public ModelAndView viewWithMessage(@ModelAttribute User user) {
+        ModelAndView view = new ModelAndView("users/formulario");
+        view.addObject("mensagem", "Registro salvo com sucesso!");
+        return view;
+    }
+
+    @GetMapping(value = "/editar/{id}")
+    public ModelAndView findById(@PathVariable("id") Long id, Model model) {
+        ModelAndView view = new ModelAndView("users/editar");
+        view.addObject("user", service.findOne(id));
+        return view;
+    }
+
+    @PostMapping(value = "/update/{id}")
+    public String update(@PathVariable("id") Long id, User morador) {
+        service.update(morador);
+        return "redirect:../cadastro";
+    }
+
+    @GetMapping(value = "/excluir/{id}")
+    public String delete(@PathVariable("id") Long id, Model model) {
+        service.deleteById(id);
+        return "redirect:../cadastro";
+    }
 }

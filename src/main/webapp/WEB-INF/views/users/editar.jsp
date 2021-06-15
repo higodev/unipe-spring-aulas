@@ -7,13 +7,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Editar Morador</title>
+<title>Editar Usuário</title>
 </head>
 <body>
-	<form:form method="POST" modelAttribute="morador"
+	<form:form method="POST" modelAttribute="user"
 		action="../update/${id}">
 		<p>Nome:</p>
-		<form:input path="nome" />
+		<form:input path="name" />
 
 		<p>Local:</p>
 		<form:input path="local" />

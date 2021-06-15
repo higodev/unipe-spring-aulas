@@ -2,7 +2,7 @@ package br.com.unipe.aula.service;
 
 import java.util.List;
 
-public interface GenericService<T> {
+public interface BaseService<T> {
 	
 	T findOne(final Long id);
 

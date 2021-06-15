@@ -39,50 +39,14 @@
     <div class="container-fluid">
         <br/>
         <div class="card">
-
             <div class="card-header">
                 <h4 class="card-title">Usuários</h4>
-
-
             </div>
 
-            <form:form method="POST" modelAttribute="user" action="cadastro">
+            <form:form method="POST" modelAttribute="user" action="save">
 
                 <div class="card-body">
                     <div class="row">
-
-                        <h5>Cadastrados</h5>
-
-                        <div class="card-body table-responsive p-0" style="height: 250px">
-                            <div class="form-group">
-                                <table class="table table-hover table-head-fixed text-nowrap">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nome</th>
-                                        <th>Local</th>
-                                        <th>Ação</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="user" items="${users}">
-                                        <tr>
-                                            <td>${user.id}</td>
-                                            <td>${user.name}</td>
-                                            <td>${user.local}</td>
-                                            <td><a href="editar/${user.id}">Editar</a> <a
-                                                    href="excluir/${user.id}">Excluir</a></td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <p></p>
-                        <hr style="height:2px; border:none; color:#000; background-color:#000; margin-top: 0px; margin-bottom: 0px;"/>
-
-                        <p><h5>Novo Cadastro</h5></p>
 
                         <input type="hidden" id="id" path="name"/>
 
@@ -114,15 +78,6 @@
         </div>
     </div>
 </div>
-<%--	<p>Nome:</p>--%>
-<%--	<form:input path="name" />--%>
-
-<%--	<p>Local:</p>--%>
-<%--	<form:input path="local" />--%>
-
-<%--	<form:button>Enviar</form:button>--%>
-
-<%--	<p>${mensagem}</p>--%>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"

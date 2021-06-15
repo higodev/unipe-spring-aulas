@@ -1,6 +1,8 @@
 package br.com.unipe.aula.service.impl;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,43 +12,45 @@ import br.com.unipe.aula.model.User;
 import br.com.unipe.aula.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService{
-	
-  IGenericDAO<User> dao;
+public class UserServiceImpl implements UserService {
 
-  @Autowired
-  public void setDao(IGenericDAO<User> daoToSet) {
-     dao = daoToSet;
-     dao.setClazz(User.class);
-  }
+    IGenericDAO<User> dao;
 
-	@Override
-	public User findOne(Long id) {
-		return dao.findOne(id);
-	}
+    @Autowired
+    public void setDao(IGenericDAO<User> daoToSet) {
+        dao = daoToSet;
+        dao.setClazz(User.class);
+    }
 
-	@Override
-	public List<User> findAll() {
-		return dao.findAll();
-	}
+    @Override
+    public User findOne(Long id) {
+        return dao.findOne(id);
+    }
 
-	@Override
-	public void create(User entity) {
-		dao.create(entity);
-	}
+    @Override
+    public List<User> findAll() {
+        return dao.findAll().stream()
+                .sorted((Comparator.comparing(User::getDateRegister).reversed()))
+                .collect(Collectors.toList());
+    }
 
-	@Override
-	public void update(User entity) {
-		dao.update(entity);
-	}
+    @Override
+    public void create(User entity) {
+        dao.create(entity);
+    }
 
-	@Override
-	public void delete(User entity) {
-		dao.delete(entity);
-	}
+    @Override
+    public void update(User entity) {
+        dao.update(entity);
+    }
 
-	@Override
-	public void deleteById(Long entityId) {
-		dao.deleteById(entityId);
-	}
+    @Override
+    public void delete(User entity) {
+        dao.delete(entity);
+    }
+
+    @Override
+    public void deleteById(Long entityId) {
+        dao.deleteById(entityId);
+    }
 }
