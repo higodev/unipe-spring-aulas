@@ -1,8 +1,11 @@
 package br.com.unipe.aula.web.controller;
 
+import br.com.unipe.aula.dto.PostCommentDTO;
 import br.com.unipe.aula.dto.PostDTO;
 import br.com.unipe.aula.model.Post;
+import br.com.unipe.aula.model.PostComment;
 import br.com.unipe.aula.model.User;
+import br.com.unipe.aula.service.PostCommentService;
 import br.com.unipe.aula.service.PostService;
 import br.com.unipe.aula.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -20,10 +23,7 @@ public class PostController extends BaseController {
     private PostService service;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
-    private UserService userService;
+    private PostCommentService commentService;
 
     private static final String ENTITY = "posts";
 
@@ -90,4 +90,32 @@ public class PostController extends BaseController {
         this.alert = "Registro excluído com sucesso!";
         return "redirect:../list";
     }
+
+
+    @PostMapping(value = "/save-comments/{id}")
+    public String create(@PathVariable("id") Long id, @ModelAttribute PostCommentDTO obj) {
+
+        this.hasAlert = true;
+
+        obj.setPost(id);
+        Post post = service.findOne(obj.getPost());
+        User user = userService.findOne(post.getCreatedBy().getId());
+
+        PostComment comment = new PostComment();
+        comment.setPost(post);
+        comment.setCreatedBy(user);
+        comment.setDescription(obj.getDescription());
+
+        if (obj.getId() == null) {
+            commentService.create(comment);
+            this.alert = "Registro salvo com sucesso!";
+        } else {
+            commentService.update(comment);
+            this.alert = "Registro atualizado com sucesso!";
+        }
+
+        return "redirect:list";
+    }
+
+
 }

@@ -27,9 +27,6 @@ public class PostComment extends BaseModel<Long> implements Serializable{
 	@Column(nullable = false, length = 100)
 	private String description;
 
-	@Column(nullable = false)
-	private LocalDate createdIn = LocalDate.now();
-	
 	@ManyToOne
 	private User createdBy;
 }

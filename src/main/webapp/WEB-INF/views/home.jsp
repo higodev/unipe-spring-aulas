@@ -34,10 +34,48 @@
         </form>
     </div>
 </nav>
-<div style="text-align: center">
-    <h5>Bem vindo(a)!</h5>
-    <a href="home">Ler Blog</a>
+<p>
+<h5 style="text-align: center">Bem vindo(a)!</h5>
+</p>
+<div class="card">
+    <div class="container">
+        <div class="container-fluid">
+            <div class="card-body">
+                <div class="row">
+                    <c:forEach var="obj" items="${posts}">
+                        <h4>${obj.descriptionTitle}</h4>
+                        <h5>${obj.descriptionSubTitle}</h5>
+                        <p>
+                                ${obj.descriptionBody}
+                            <br/>
+                            <small>Criador: ${obj.createdBy.name}</small>
+                        </p>
+
+                        <form:form method="POST" modelAttribute="comments" action="posts/save-comments/${obj.id}">
+
+                            <form:input type="hidden" id="id" path="id"/>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description">Comentários</label>
+                                    <form:input class="form-control" id="description"
+                                                path="description"/>
+                                </div>
+                                <p></p>
+                            </div>
+                            <div style="width: 150px;">
+                                <form:button type="submit" class="btn btn-primary mb-3">Comentar</form:button>
+                            </div>
+                        </form:form>
+                        <p></p>
+                        <hr>
+                    </c:forEach>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"

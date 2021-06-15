@@ -12,16 +12,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(path = "/users")
 public class UserController extends BaseController {
 
-    @Autowired
-    private UserService service;
-
     private static final String ENTITY = "users";
 
     @GetMapping(value = "/list")
     public ModelAndView findAll(String...msg) {
 
         ModelAndView view = new ModelAndView(ENTITY + "/list");
-        view.addObject(ENTITY, service.findAll());
+        view.addObject(ENTITY, userService.findAll());
 
         if (this.hasAlert) {
             view.addObject("message", getMessageSuccess(this.alert));
@@ -43,10 +40,10 @@ public class UserController extends BaseController {
         this.hasAlert = true;
 
         if (obj.getId() == null) {
-            service.create(obj);
+            userService.create(obj);
             this.alert = "Registro salvo com sucesso!";
         } else {
-            service.update(obj);
+            userService.update(obj);
             this.alert = "Registro atualizado com sucesso!";
         }
 
@@ -56,14 +53,14 @@ public class UserController extends BaseController {
     @GetMapping(value = "/edit")
     public ModelAndView findById(@RequestParam(value = "id") Long id) {
         ModelAndView view = new ModelAndView(ENTITY + "/form");
-        view.addObject("obj", service.findOne(id));
+        view.addObject("obj", userService.findOne(id));
         return view;
     }
 
     @GetMapping(value = "/delete/{id}")
     public String delete(@PathVariable("id") Long id, Model model) {
         this.hasAlert = true;
-        service.deleteById(id);
+        userService.deleteById(id);
         this.alert = "Registro excluído com sucesso!";
         return "redirect:../list";
     }
