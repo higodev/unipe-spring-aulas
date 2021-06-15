@@ -114,7 +114,7 @@ public class PostController extends BaseController {
             this.alert = "Registro atualizado com sucesso!";
         }
 
-        return "redirect:list";
+        return "redirect:/home";
     }
 
 

@@ -31,7 +31,7 @@ public class Post extends BaseModel<Long> implements Serializable{
 	@ManyToOne(fetch = FetchType.EAGER)
 	private User createdBy;
 	
-	@OneToMany(mappedBy = "post")
+	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
 	private List<PostComment> comments = new ArrayList<>();
 	
 }

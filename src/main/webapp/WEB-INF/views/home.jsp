@@ -51,15 +51,22 @@
                             <small>Criador: ${obj.createdBy.name}</small>
                         </p>
 
+                        <p><strong>Comentários</strong></p>
+
+                        <small>
+                            <c:forEach var="com" items="${obj.comments}">
+                                <p>- ${com.description}</p>
+                            </c:forEach>
+                        </small>
+                        <br/>
                         <form:form method="POST" modelAttribute="comments" action="posts/save-comments/${obj.id}">
 
                             <form:input type="hidden" id="id" path="id"/>
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="description">Comentários</label>
                                     <form:input class="form-control" id="description"
-                                                path="description"/>
+                                                placeholder="Deixe aqui seu comentário" path="description"/>
                                 </div>
                                 <p></p>
                             </div>
