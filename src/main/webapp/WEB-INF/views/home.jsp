@@ -35,7 +35,7 @@
     </div>
 </nav>
 <p>
-<h5 style="text-align: center">Bem vindo(a)!</h5>
+<h5 style="text-align: center">Boa leitura!</h5>
 </p>
 <div class="card">
     <div class="container">
