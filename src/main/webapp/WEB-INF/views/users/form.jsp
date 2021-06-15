@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Usuários</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
@@ -21,10 +21,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="posts/list">Posts</a>
+                    <a class="nav-link active" aria-current="page" href="../posts/list">Posts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="users/list">Usuários</a>
+                    <a class="nav-link active" aria-current="page" href="../users/list">Usuários</a>
                 </li>
             </ul>
         </div>
@@ -34,14 +34,53 @@
         </form>
     </div>
 </nav>
-<div style="text-align: center">
-    <h5>Bem vindo(a)!</h5>
-    <a href="home">Ler Blog</a>
+
+<div class="container">
+    <div class="container-fluid">
+        <br/>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Usuários</h4>
+            </div>
+
+            <form:form method="POST" modelAttribute="obj" action="save">
+
+                <div class="card-body">
+                    <div class="row">
+
+                        <form:input type="hidden" id="id" path="id"/>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name">Nome</label>
+                                <form:input class="form-control" id="name" path="name"/>
+                            </div>
+                        </div>
+
+                        <p></p>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="local">Local</label>
+                                <form:input class="form-control" id="local" path="local"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <form:button type="submit" class="btn btn-primary mb-3">Salvar</form:button>
+                </div>
+
+            </form:form>
+            <p></p>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
-
 </body>
 </html>

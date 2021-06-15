@@ -20,7 +20,7 @@ public class SpringJpaConfig {
 
 	private static final String PACKAGE_MODELS = "br.com.unipe.aula.model";
 	private static final String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String MYSQL_DATABASE = "unipe";
+	private static final String MYSQL_DATABASE = "avaliacao";
 	private static final String MYSQL_URL = "jdbc:mysql://localhost:3306/{database}?createDatabaseIfNotExist=true";
 	private static final String MYSQL_USERNAME = "root";
 	private static final String MYSQL_PASSWORD = "root";
