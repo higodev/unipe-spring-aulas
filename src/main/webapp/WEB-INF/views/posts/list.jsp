@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Usuários</title>
+    <title>Lista de Posts</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
@@ -42,7 +42,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <h4 class="card-title">Usuários</h4>
+                    <h4 class="card-title">Posts</h4>
                     <div class="card-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
                             <a class="btn btn-block btn-primary btn-sm float-right" href="new">Novo
@@ -58,18 +58,18 @@
                         <table class="table table-hover table-head-fixed text-nowrap">
                             <thead>
                             <tr>
-                                <th>Matricula</th>
-                                <th>Nome</th>
-                                <th>Local</th>
+                                <th>Título</th>
+                                <th>Subtitulo</th>
+                                <th>Descrição</th>
                                 <th>Ação</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="obj" items="${users}">
+                            <c:forEach var="obj" items="${posts}">
                                 <tr>
-                                    <td style="width: 10%">${obj.id}</td>
-                                    <td style="width: 50%">${obj.name}</td>
-                                    <td style="width: 30%">${obj.local}</td>
+                                    <td style="width: 30%">${obj.descriptionTitle}</td>
+                                    <td style="width: 35%">${obj.descriptionSubTitle}</td>
+                                    <td style="width: 25%">${obj.descriptionBody}</td>
                                     <td style="width: 10%">
                                         <a class="badge bg-primary" href="edit?id=${obj.id}">Editar</a>
                                         <a class="badge bg-danger" href="delete/${obj.id}">Excluir</a>

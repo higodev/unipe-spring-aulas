@@ -1,5 +1,11 @@
 package br.com.unipe.aula.web.controller;
 
 public abstract class BaseController {
-    private static final String TITLE = "Projeto Avaliação";
+
+    protected String alert;
+    protected boolean hasAlert;
+
+    protected String getMessageSuccess(String message) {
+        return "<div class=\"alert alert-success\" role=\"alert\">" + message + "</div>";
+    }
 }

@@ -1,5 +1,6 @@
 package br.com.unipe.aula.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -18,6 +19,12 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter{
         resolver.setSuffix(".jsp");
         resolver.setViewClass(JstlView.class);
         return resolver;
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper;
     }
 
     @Override

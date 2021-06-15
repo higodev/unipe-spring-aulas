@@ -1,5 +1,7 @@
 package br.com.unipe.aula.config;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class SpringInitConfig extends AbstractAnnotationConfigDispatcherServletInitializer {

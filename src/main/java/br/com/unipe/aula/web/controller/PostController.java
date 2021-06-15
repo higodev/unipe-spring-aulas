@@ -1,7 +1,11 @@
 package br.com.unipe.aula.web.controller;
 
+import br.com.unipe.aula.dto.PostDTO;
+import br.com.unipe.aula.model.Post;
 import br.com.unipe.aula.model.User;
+import br.com.unipe.aula.service.PostService;
 import br.com.unipe.aula.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,16 +13,22 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(path = "/users")
-public class UserController extends BaseController {
+@RequestMapping(path = "/posts")
+public class PostController extends BaseController {
 
     @Autowired
-    private UserService service;
+    private PostService service;
 
-    private static final String ENTITY = "users";
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private UserService userService;
+
+    private static final String ENTITY = "posts";
 
     @GetMapping(value = "/list")
-    public ModelAndView findAll(String...msg) {
+    public ModelAndView findAll(String... msg) {
 
         ModelAndView view = new ModelAndView(ENTITY + "/list");
         view.addObject(ENTITY, service.findAll());
@@ -33,20 +43,24 @@ public class UserController extends BaseController {
 
     @GetMapping(path = "/new")
     public ModelAndView newRecord(Model model) {
-        model.addAttribute("obj", new User());
+        model.addAttribute("obj", new PostDTO());
+        model.addAttribute("users", userService.findAll());
         return new ModelAndView(ENTITY + "/form");
     }
 
     @PostMapping(value = "/save")
-    public String create(@ModelAttribute User obj) {
+    public String create(@ModelAttribute PostDTO obj) {
 
         this.hasAlert = true;
+        User user = userService.findOne(obj.getCreatedBy());
+        Post post = modelMapper.map(obj, Post.class);
+        post.setCreatedBy(user);
 
         if (obj.getId() == null) {
-            service.create(obj);
+            service.create(post);
             this.alert = "Registro salvo com sucesso!";
         } else {
-            service.update(obj);
+            service.update(post);
             this.alert = "Registro atualizado com sucesso!";
         }
 
@@ -56,7 +70,16 @@ public class UserController extends BaseController {
     @GetMapping(value = "/edit")
     public ModelAndView findById(@RequestParam(value = "id") Long id) {
         ModelAndView view = new ModelAndView(ENTITY + "/form");
-        view.addObject("obj", service.findOne(id));
+        Post post = service.findOne(id);
+        PostDTO postDTO = new PostDTO(
+                post.getId(),
+                post.getDescriptionTitle(),
+                post.getDescriptionSubTitle(),
+                post.getDescriptionBody(),
+                post.getCreatedBy().getId()
+        );
+        view.addObject("obj", postDTO);
+        view.addObject("users", userService.findAll());
         return view;
     }
 
