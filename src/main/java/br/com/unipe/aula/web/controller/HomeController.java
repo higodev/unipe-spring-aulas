@@ -22,6 +22,7 @@ public class HomeController extends BaseController {
         ModelAndView view = new ModelAndView();
         view.addObject(ENTITY, service.findAll());
         view.addObject("comments", new PostComment());
+        view.addObject("users", userService.findAll());
         return view;
     }
 }

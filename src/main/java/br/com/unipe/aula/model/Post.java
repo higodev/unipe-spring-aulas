@@ -19,19 +19,19 @@ public class Post extends BaseModel<Long> implements Serializable{
 	
 	private static final long serialVersionUID = -5751971415990666818L;
 
-	@Column(length = 50)
+	@Column(length = 250)
 	private String descriptionTitle;
 
-	@Column(length = 100)
+	@Column(length = 250)
 	private String descriptionSubTitle;
 	
-	@Column(nullable = true, length = 1000)
+	@Column(length = 5000)
 	private String descriptionBody;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private User createdBy;
 	
-	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<PostComment> comments = new ArrayList<>();
 	
 }

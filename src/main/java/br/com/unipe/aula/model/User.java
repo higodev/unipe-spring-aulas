@@ -21,7 +21,7 @@ public class User extends BaseModel<Long> implements Serializable {
 
 	private static final long serialVersionUID = 4432797654111047262L;
 
-	@Column(length = 100)
+	@Column(nullable = false, length = 100)
 	private String name;
 
 	@Column(length = 200)

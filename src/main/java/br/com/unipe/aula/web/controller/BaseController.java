@@ -6,17 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class BaseController {
 
-    @Autowired
-    protected ModelMapper modelMapper;
+  @Autowired
+  protected ModelMapper modelMapper;
 
-    @Autowired
-    protected UserService userService;
+  @Autowired
+  protected UserService userService;
 
-    protected String alert;
+  protected String alertType = "success";
+  protected String alertMessage = "Operação realizada com sucesso!";
+  protected boolean alertActive;
 
-    protected boolean hasAlert;
+  protected String getViewAlertMessage() {
+    return "<div class=\"alert alert-" + alertType + "\" role=\"alert\">" + alertMessage + "</div>";
+  }
 
-    protected String getMessageSuccess(String message) {
-        return "<div class=\"alert alert-success\" role=\"alert\">" + message + "</div>";
-    }
 }

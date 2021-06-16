@@ -1,12 +1,16 @@
 package br.com.unipe.aula.web.controller;
 
-import br.com.unipe.aula.model.User;
-import br.com.unipe.aula.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import br.com.unipe.aula.model.User;
 
 @Controller
 @RequestMapping(path = "/users")
@@ -20,9 +24,9 @@ public class UserController extends BaseController {
         ModelAndView view = new ModelAndView(ENTITY + "/list");
         view.addObject(ENTITY, userService.findAll());
 
-        if (this.hasAlert) {
-            view.addObject("message", getMessageSuccess(this.alert));
-            this.hasAlert = false;
+        if (this.alertActive) {
+            view.addObject("message", getViewAlertMessage());
+            this.alertActive = false;
         }
 
         return view;
@@ -37,14 +41,14 @@ public class UserController extends BaseController {
     @PostMapping(value = "/save")
     public String create(@ModelAttribute User obj) {
 
-        this.hasAlert = true;
+        this.alertActive = true;
 
         if (obj.getId() == null) {
             userService.create(obj);
-            this.alert = "Registro salvo com sucesso!";
+            this.alertMessage = "Registro salvo com sucesso!";
         } else {
             userService.update(obj);
-            this.alert = "Registro atualizado com sucesso!";
+            this.alertMessage = "Registro atualizado com sucesso!";
         }
 
         return "redirect:list";
@@ -59,9 +63,9 @@ public class UserController extends BaseController {
 
     @GetMapping(value = "/delete/{id}")
     public String delete(@PathVariable("id") Long id, Model model) {
-        this.hasAlert = true;
+        this.alertActive = true;
         userService.deleteById(id);
-        this.alert = "Registro excluído com sucesso!";
+        this.alertMessage = "Registro excluído com sucesso!";
         return "redirect:../list";
     }
 }
